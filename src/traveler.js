@@ -4,16 +4,13 @@ class Traveler {
         this.name = traveler.name;
         this.passion = traveler.passion;
         this.plans = [];
-        Traveler.all.push(this);
     }
 
-    renderListItem() {
-        
+    renderLi() {      
         return `
-            <li>
-                <strong>Name: ${this.name}, passion: ${this.passion}
-                <button data-id=${this.id}>Edit</button>
-                <button data-id="${this.id}">Delete</button></strong>
+            <li data-id=${this.id}>
+              <p>Name: ${this.name} - Passion: ${this.passion}            
+                 <button id="delete-button" data-id="${this.id}">Delete</button></p>   
             </li>`;
             
     }
@@ -24,16 +21,16 @@ class Traveler {
 
     renderUpdateForm() {
         return `
-            <form data-id=${this.id}>
+            <form data-id=${this.id} id="update-form">
               <label>Name</label>
               <p>
-                <input type="text" value="${this.name}" />
+                <input type="text" value="${this.name}" id="updated-name"/>
               </p>
               <label>Passion</label>
               <p>
-                <input type="text" value="${this.passion}" />
+                <input type="text" value="${this.passion}" id="updated-passion"/>
               </p>
-              <button type='submit'>Save Traveler</button>
+              <button id="update" type='submit'>Save Traveler</button>
             </form>
       `;
     }
@@ -43,5 +40,3 @@ class Traveler {
         this.passion = passion;
     }
 }
-
-Traveler.all = [];
