@@ -8,9 +8,9 @@ class Traveler {
 
     renderLi() {      
         return `
-            <li data-id=${this.id}>
+            <li data-id=${this.id} class="card">
               <p>Name: ${this.name} - Passion: ${this.passion}            
-                 <button id="delete-button" data-id="${this.id}">Delete</button></p>   
+                 <button id="delete-traveler-button" class="delete-traveler-button" data-id="${this.id}">Delete</button></p>   
             </li>`;
             
     }

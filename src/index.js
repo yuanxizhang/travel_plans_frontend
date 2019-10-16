@@ -40,7 +40,10 @@ addOfferForm.addEventListener('submit', function (event) {
     body: JSON.stringify({
       tpur_name: `${event.target.tour_name.value}`,
       about: `${event.target.about.value}`,
-      likes: 0
+      departs: `${event.target.tour_name.value}`,
+      lemgth: `${event.target.length.value}`,
+      Price: `${event.target.price.value}`
+      // likes: 0
     })
   })
     .then(resp => resp.json())
@@ -90,13 +93,56 @@ function getTravelers() {
           });          
 }
 
+function postRequest(url, data) {
+  return fetch(url, {
+    credentials: 'same-origin',
+    method: 'POST', 
+    body: JSON.stringify(data), // Coordinate the body type with 'Content-Type'
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    })
+  })
+  .then(response => response.json());
+}
 
+const addTravelerForm = document.querySelector('.add-traveler-form')
+addTravelerForm.addEventListener('submit', function (event) {
+  fetch(`http://localhost:3000/travelers/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: `${event.target.name.value}`,
+      passion: `${event.target.passion.value}`,
+    })
+  })
+    .then(resp => resp.json())
+    .then(json => {
+              json.forEach(tr => {
+                const newTraveler = new Traveler(tr);
+                document.querySelector('#travelers-list').innerHTML += newTraveler.renderLi();
+              }); 
+  })
+})
+const deleteTravelerButton = document.getElementById('delete-traveler-button')
+deleteTravelerButton.addEventListener('click', function (event) {
+    let delButtonIsPressed = event.target.className === "delete-traveler-button"
+    if (delButtonIsPressed) {
+        alert("Are you sure?");
+        let id = event.target.parentElement.dataset.id
+        fetch(`http://localhost:3000/travelers/${id}`, {
+          method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(json => console.log(json))
+      }
+})
 // function addNewTraveler() {
-//     const travelerList = new TravelerList();
-  
+    
 //     const newTravelerForm = document.getElementById("new-traveler-form");
-//     const newTravelerName = document.getElementById("new-traveler-name").value;
-//     const newTravelerPassion = document.getElementById("new-traveler-passion").value;
+//     const newTravelerName = document.getElementById("new-traveler-name");
+//     const newTravelerPassion = document.getElementById("new-traveler-passion");
 //     const travelerUl = document.getElementById("travelers-list");
 
 //     let formData = {
@@ -117,28 +163,21 @@ function getTravelers() {
 //       .then(response => response.json())
 //       .then(json => console.log(json));
 
-//     const renderApp = () => (travelerUl.innerHTML = travelerList.render());
+//     const renderApp = () => (travelerUl.innerHTML = .render());
 
 //       newTravelerForm.addEventListener("submit", (e) => {
 //         e.preventDefault();
-//         travelerList.createNewTraveler(newTravelerName.value, newTravelerPassion.value);
+//         const traveler =Traveler(newTravelerName.value, newTravelerPassion.value);
 //         // reset form
 //         e.target.reset();
 //         renderApp();
 //       });
 
 //       travelerUl.addEventListener("click", (e) => {
-//         if (e.target.nodeName === "BUTTON") {
+//         if (e.target.className === "delete-button") {
 //           travelerList.deleteTraveler(e.target.dataset.name);
 //           renderApp();
 //         }
 //       });
-// }
-
-
-
-
-
-
-
+// // }
 
