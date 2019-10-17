@@ -1,0 +1,47 @@
+body {
+  margin: 5% 10%;
+  background-color: beige;
+}
+
+body h1 {
+  color: #777;
+}
+
+body > header {
+  margin-bottom: 5%;
+}
+
+fieldset {
+  display: block;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding-top: 0.35em;
+  padding-bottom: 0.625em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  border: 2px groove (internal value);
+}
+
+.card {
+  border: solid 0.5px #999;
+  margin: 2% 3%;
+  background-color: #fff;
+}
+
+.card > p {
+  background-color: rgba(0,123,255,0.25);
+  padding: 0.33em 0.33em;
+}
+
+article.media-post > header {
+  padding: 1em 2em;
+  background-color: rgb(225,232,237);
+}
+
+article.media-post > footer {
+  color: rgb(170,184,194);
+}
+
+.card > footer ul {
+  list-style-type: none;
+}

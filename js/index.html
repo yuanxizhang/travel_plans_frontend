@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Travel Plans App</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Travel Plans App</h1>
+      
+      <div id="lists">
+        <h4>Tours offered</h4>
+        <UL id="offers-list"></UL>
+
+        <form id="new-offer-form" class="add-offer-form" >
+          <fieldset>
+              <legend>New Tour Offer</legend>
+              <label> Tour Name: 
+              <input type="text" name="tour_name" id="new-tour-name" /></label><br />
+              <label> Detail: 
+              <input type="text" name="detail" id="new-detail" /></label><br />
+              <label> Departs: 
+              <input type="text" name="departs" id="new-departs" /></label><br />
+              <label> Length: 
+              <input type="text" name="length" id="new-length" /></label><br />
+              <label> Price: 
+              <input type="text" name="price" id="new-length" /></label><br />
+              <input class="btn btn-primary" type="submit" name="submit" id="submit" value="Submit" />
+          </fieldset>
+        </form>
+
+        <h4>Travelers</h4>
+        <UL id="travelers-list"></UL>
+
+        <h5>Add new traveler</h5>
+        <form id="new-traveler-form" class="add-traveler-form" >
+          <label> Name: 
+          <input type="text" name="new-traveler-name" id="new-traveler-name" /></label><br />
+          <label> Passion: 
+          <input type="text" name="new-traveler-passion" id="new-traveler-passion" /></label><br />
+          <input class="btn btn-primary" type="submit" name="submit" id="submit" value="Submit" />
+        </form>
+      </div>
+
+      <script src="./src/index.js"></script>
+      <script src="./src/offer.js"></script>
+      <script src="./src/traveler.js"></script>
+      <script src="./src/plan.js"></script>
+    </div>
+  </body>
+</html>
+
