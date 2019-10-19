@@ -11,6 +11,26 @@ body > header {
   margin-bottom: 5%;
 }
 
+li {
+    font-size: 1.05em;
+    list-style: lower-alpha;
+    padding-right: 20px;
+}
+
+button.remove {
+    float: right;
+    color: #fff;
+    background-color: #E1332D;
+    border-radius: 10px;
+}
+
+button.delet-btn {
+    font-size: .65em;
+    color: red;
+    background-color: green;
+    border-radius: 10px;
+  }
+
 fieldset {
   display: block;
   margin-left: 2px;

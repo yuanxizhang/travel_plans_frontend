@@ -10,7 +10,7 @@ class Traveler {
         return `
             <li data-id=${this.id} class="card">
               <p>Name: ${this.name} - Passion: ${this.passion}            
-                 <button id="delete-traveler-button" class="delete-traveler-button" data-id="${this.id}">Delete</button></p>   
+                 <button id="delete-traveler" class="delete-traveler" data-id="${this.id}">Delete</button></p>   
             </li>`;
             
     }
