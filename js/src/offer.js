@@ -6,19 +6,21 @@ class Offer {
         this.departs = offer.departs;
         this.length = offer.length;
         this.price = offer.price;
+        this.likes = offer.likes;
         this.provider_id = offer.provider_id;
     }
 
     renderLi() {      
         return `
-            <li class="card" data-id=${offer.id}>
-                <h5>${offer.tour_name}</h5>
-                <p>Detail: ${offer.about}</p>
-                <p>Departs: ${offer.departs}</p>
-                <p>Length: ${offer.length} </p>
-                <p>Price: ${offer.price} dollars</p>
+            <li class="card" data-id=${this.id}>
+                <h5>${this.tour_name}</h5>
+                <p>Detail: ${this.about}</p>
+                <p>Departs: ${this.departs}</p>
+                <p>Length: ${this.length} </p>
+                <p>Price: ${this.price} dollars</p>
+                <p>Likes: ${this.likes} </p>
                 <button class="like-btn">Like</button>
-                <button class="btn btn-danger">Delete</button>
+                <button class="delete-btn btn btn-danger">Delete</button>
             </li>`;
             
     }
@@ -30,13 +32,13 @@ class Offer {
     renderUpdateForm() {
         return `
             <form data-id=${this.id} id="update-form">
-              <label>Place</label>
+              <label>Tour Name</label>
               <p>
-                <input type="text" value="${this.place}" id="updated-place" />
+                <input type="text" value="${this.tour_name}" id="updated-tour-name" />
               </p>
-              <label>Advanture</label>
+              <label>About</label>
               <p>
-                <input type="text" value="${this.adventure}" id="updated-adventure" />
+                <input type="text" value="${this.about}" id="updated-about" />
               </p>
               <button id="update" type='submit'>Save Offer</button>
             </form>
