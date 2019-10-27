@@ -36,8 +36,11 @@ class Api::V1::PlansController < ApplicationController
 
   def destroy
     plan = Plan.find_by(:id => params[:id])
-    plan.destroy
-    render json: { message: "removed" }, status: :ok
+    if plan.destroy
+      render json: { message: "removed" }, status: :ok
+    else
+      render json: plan, message: "Failed to remove", status: :bad_request
+    end
   end
 
   private

@@ -35,8 +35,11 @@ class Api::V1::TravelersController < ApplicationController
   end
 
   def destroy
-    traveler.destroy
-    render json: { message: "removed" }, status: :ok
+    if traveler.destroy
+      render json: { message: "removed" }, status: :ok
+    else
+      render json: traveler, message: "Failed to remove", status: :bad_request
+    end
   end
 
   private

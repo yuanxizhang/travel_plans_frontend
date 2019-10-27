@@ -18,16 +18,17 @@ li {
 }
 
 button.remove {
+    font-size: .65em;
     float: right;
     color: #fff;
     background-color: #E1332D;
     border-radius: 10px;
 }
 
-button.delet-btn {
+button.delete-btn {
     font-size: .65em;
-    color: red;
-    background-color: green;
+    color: white;
+    background-color: red;
     border-radius: 10px;
   }
 
@@ -50,6 +51,12 @@ fieldset {
 
 .card > p {
   background-color: rgba(0,123,255,0.25);
+  padding: 0.33em 0.33em;
+}
+
+.card > h5 {
+  text-align: center;
+  color: navy;
   padding: 0.33em 0.33em;
 }
 

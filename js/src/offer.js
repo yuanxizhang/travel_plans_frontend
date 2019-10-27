@@ -7,20 +7,21 @@ class Offer {
         this.length = offer.length;
         this.price = offer.price;
         this.likes = offer.likes;
-        this.provider_id = offer.provider_id;
+        this.provider = offer.provider;
     }
 
-    renderLi() {      
+    renderOffer() {      
         return `
-            <li class="card" data-id=${this.id}>
+            <li class="card" data-id=${this.id} id="offer-card">
                 <h5>${this.tour_name}</h5>
                 <p>Detail: ${this.about}</p>
                 <p>Departs: ${this.departs}</p>
                 <p>Length: ${this.length} </p>
                 <p>Price: ${this.price} dollars</p>
-                <p>Likes: ${this.likes} </p>
-                <button class="like-btn">Like</button>
-                <button class="delete-btn btn btn-danger">Delete</button>
+                <p>Likes: ${this.provider.name} </p>
+                <p>${this.likes} Likes</p>
+
+                <button class="like-btn" data-id=${this.id}>Like</button>
             </li>`;
             
     }

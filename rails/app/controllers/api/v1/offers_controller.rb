@@ -17,8 +17,7 @@ class Api::V1::OffersController < ApplicationController
   def create
     offer = Offer.new(offer_params)
     
-    if offer.valid?
-      offer.save
+    if offer.save
       render json: offer, status: :accepted
     else 
       render json: { errors: offer.errors.full_messages }, status: :unprocessible_entity
@@ -36,8 +35,11 @@ class Api::V1::OffersController < ApplicationController
 
   def destroy
     offer = Offer.find_by(:id => params[:id])
-    offer.destroy
-    render json: { message: "removed" }, status: :ok
+    if offer.destroy
+      render json: { message: "removed" }, status: :ok
+    else
+      render json: offer, message: "Failed to remove", status: :bad_request
+    end
   end
 
   private
@@ -47,6 +49,6 @@ class Api::V1::OffersController < ApplicationController
   end
 
   def find_offer
-    offer = Offer.find(params[:id])
+    offer = Offer.find_by(:id => params[:id])
   end
 end

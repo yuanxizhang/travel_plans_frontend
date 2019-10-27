@@ -15,21 +15,26 @@ function fetchOffers(){
           .then (json => renderOffers(json));  
 }
 
-function renderOffers(offers){
-  offers.forEach(offer => {
-                document.querySelector('#offers-list').innerHTML += 
-                `<li class="card" data-id=${offer.id}>
+function renderOffers(offers) {
+    offers.forEach((offer) => {renderOffer(offer)});
+}
+
+function renderOffer(offer){
+    
+    document.querySelector('#offers-list').innerHTML += 
+                `<li class="card" data-id=${offer.id} id="offer-card">
                     <h5>${offer.tour_name}</h5>
                     <p>Detail: ${offer.about}</p>
                     <p>Departs: ${offer.departs}</p>
                     <p>Length: ${offer.length} </p>
                     <p>Price: ${offer.price} dollars</p>
                     <p>Tour provider: ${offer.provider.name}</p>
-                    <p>Likes: ${offer.likes} </p>
-                    <button id="likeBtn" class="btn btn-primary">Like</button>
-                    <button class="delete-btn btn btn-danger">Delete</button>
+                    <p>${offer.likes} Likes</p>
+                    <button class="likeBtn btn btn-primary" data-id=${offer.id} id="like-button">Like</button>
                 </li>`;
-              })
+                
+    document.getElementById("like-button").addEventListener("click", handleLike);
+              
 }
 
 // addOfferForm = document.querySelector('.add-offer-form')
@@ -83,6 +88,25 @@ function renderOffers(offers){
 //   }
 // })
 
+function handleLike(e) {
+    let totalLikes = parseInt(e.target.previousElementSibling.innerText) + 1
+    let options = {
+                    method: "PATCH",
+                    headers: {
+                              "Content-Type": "application/json",
+                              "Accept": "application/json"
+                            },
+                    body: JSON.stringify({
+                                likes: totalLikes
+                            })
+                    }
+
+    fetch(OFFERS_URL + `/${e.target.dataset.id}`, options)
+    .then(resp => resp.json())
+    .then(data => {
+      e.target.previousElementSibling.innerText = `${totalLikes} Likes`
+    })
+  }
 
 function getTravelers() {
     return fetch(TRAVELERS_URL)
@@ -91,7 +115,7 @@ function getTravelers() {
 }
 
 function createTravelers(data) {
-    data.forEach(traveler => renderTraveler(traveler))
+    data.forEach(traveler => renderTraveler(traveler));
     
 }
 
@@ -126,7 +150,7 @@ function renderTraveler(traveler) {
 }
 
 function morePlan(e) {
-    if (e.target.nextSibling.childElementCount < 6) {
+    if (e.target.nextSibling.childElementCount < 10) {
         fetchPlan(e.target.attributes[0].value)
     }
 
@@ -134,7 +158,7 @@ function morePlan(e) {
 
 function fetchPlan(traveler_id) {
 
-    let travelerObj = {
+    let planObj = {
         "traveler_id": traveler_id
     }
 
@@ -143,12 +167,13 @@ function fetchPlan(traveler_id) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(travelerObj)
+        body: JSON.stringify(planObj)
     };
 
     fetch(PLANS_URL, configObj)
         .then(res => res.json())
         .then(obj => renderPlan(obj))
+        .catch(err => console.log(err));
 }
 
 function renderPlan(obj) {
@@ -176,10 +201,10 @@ function createPlan(obj) {
     return li;
 }
 
-function destroyPlan(element) {
+function destroyPlan(e) {
     
     let planObj = {
-        "id": element.target.attributes[1].value
+        "id": e.target.attributes[1].value
     }
 
     let configObj = {
@@ -193,6 +218,7 @@ function destroyPlan(element) {
     fetch(PLANS_URL + `/${planObj.id}`, configObj)
         .then(res => res.json())
         .then(obj => removePlan(obj))
+        .catch(err => console.log(err));
 }
 
 function removePlan(obj) {
