@@ -11,7 +11,7 @@ class Api::V1::OffersController < ApplicationController
   end
 
   def show  
-    render json: offer
+    render json: @offer
   end
 
   def create
@@ -25,11 +25,11 @@ class Api::V1::OffersController < ApplicationController
   end
 
   def update
-    offer.update(offer_params)
-    if offer.save
-      render json: offer, status: :accepted
+    @offer.update(offer_params)
+    if @offer.save
+      render json: @offer, status: :accepted
     else
-      render json: { errors: offer.errors.full_messages }, status: :unprocessible_entity
+      render json: { errors: @offer.errors.full_messages }, status: :unprocessible_entity
     end
   end
 
@@ -49,6 +49,6 @@ class Api::V1::OffersController < ApplicationController
   end
 
   def find_offer
-    offer = Offer.find_by(:id => params[:id])
+    @offer = Offer.find_by(:id => params[:id])
   end
 end
