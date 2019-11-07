@@ -1,5 +1,4 @@
 class Api::V1::ProvidersController < ApplicationController
-	before_action :find_provider, only: [:show, :update]
   
   def index
     providers = Provider.all
@@ -10,7 +9,8 @@ class Api::V1::ProvidersController < ApplicationController
     provider = Provider.new
   end
 
-  def show  
+  def show 
+    provider = Provider.find(params[:id]) 
     render json: provider
   end
 
@@ -26,6 +26,7 @@ class Api::V1::ProvidersController < ApplicationController
   end
 
   def update
+    provider = Provider.find(params[:id])
     provider.update(provider_params)
     if provider.save
       render json: provider, status: :accepted
@@ -40,7 +41,4 @@ class Api::V1::ProvidersController < ApplicationController
     params.permit(:name, :website)
   end
 
-  def find_provider
-    provider = Provider.find(params[:id])
-  end
 end

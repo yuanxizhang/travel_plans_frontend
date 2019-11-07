@@ -17,7 +17,7 @@ class Offer {
                 <p>Detail: ${this.about}</p>
                 <p>Departs: ${this.departs}</p>
                 <p>Length: ${this.length} </p>
-                <p>Price: ${this.price} dollars</p>
+                <p>Price: $${this.price} dollars</p>
                 <p>Likes: ${this.provider.name} </p>
                 <p>${this.likes} Likes</p>
 

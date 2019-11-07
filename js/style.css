@@ -22,7 +22,7 @@ button.remove {
     float: right;
     color: #fff;
     background-color: #E1332D;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 button.delete-btn {

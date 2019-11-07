@@ -10,7 +10,8 @@ class Api::V1::PlansController < ApplicationController
     plan = Plan.new
   end
 
-  def show  
+  def show 
+    plan = Plan.find_by_id(params[:id]) 
     render json: plan
   end
 
@@ -26,6 +27,8 @@ class Api::V1::PlansController < ApplicationController
   end
 
   def update
+    plan = Plan.find_by_id(params[:id])
+
     plan.update(plan_params)
     if plan.save
       render json: plan, status: :accepted
@@ -49,7 +52,4 @@ class Api::V1::PlansController < ApplicationController
     params.permit(:place, :adventure)
   end
 
-  def find_plan
-    plan = Plan.find_by_id(params[:id])
-  end
 end

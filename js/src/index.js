@@ -16,6 +16,7 @@ function fetchOffers(){
 }
 
 function renderOffers(offers) {
+
     offers.forEach((offer) => {renderOffer(offer)});
 }
 
@@ -27,13 +28,12 @@ function renderOffer(offer){
                     <p>Detail: ${offer.about}</p>
                     <p>Departs: ${offer.departs}</p>
                     <p>Length: ${offer.length} </p>
-                    <p>Price: ${offer.price} dollars</p>
+                    <p>Price: $${Math.round(offer.price)} dollars</p>
                     <p>Tour provider: ${offer.provider.name}</p>
                     <p>${offer.likes} Likes</p>
-                    <button class="likeBtn btn btn-primary" data-id=${offer.id} id="like-button">Like</button>
+                    <button class="like-button btn btn-primary" data-id=${offer.id} >Like</button>
                 </li>`;
-                
-    document.getElementById("like-button").addEventListener("click", handleLike);
+    document.querySelector(".like-button").addEventListener('click', handleLike);
               
 }
 

@@ -1,8 +1,7 @@
 class Api::V1::OffersController < ApplicationController
-	before_action :find_offer, only: [:show, :update]
 
   def index
-    offers = Offer.all
+    offers = Offer.all.order(:price)
     render json: offers
   end
 
@@ -11,7 +10,8 @@ class Api::V1::OffersController < ApplicationController
   end
 
   def show  
-    render json: @offer
+    offer = Offer.find_by(:id => params[:id])
+    render json: offer
   end
 
   def create
@@ -25,11 +25,12 @@ class Api::V1::OffersController < ApplicationController
   end
 
   def update
-    @offer.update(offer_params)
-    if @offer.save
-      render json: @offer, status: :accepted
+    offer = Offer.find_by(:id => params[:id])
+    offer.update(offer_params)
+    if offer.save
+      render json: offer, status: :accepted
     else
-      render json: { errors: @offer.errors.full_messages }, status: :unprocessible_entity
+      render json: { errors: offer.errors.full_messages }, status: :unprocessible_entity
     end
   end
 
@@ -45,10 +46,7 @@ class Api::V1::OffersController < ApplicationController
   private
 
   def offer_params
-    params.permit(:tour_name, :about, :departs, :length, :price, :likes)
+    params.permit(:tour_name, :about, :departs, :length, :price, :likes, :provider_id)
   end
 
-  def find_offer
-    @offer = Offer.find_by(:id => params[:id])
-  end
 end

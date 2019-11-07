@@ -1,5 +1,4 @@
 class Api::V1::TravelersController < ApplicationController
-	before_action :find_traveler, only: [:show, :update, :destroy]
   
   def index
     travelers = Traveler.all
@@ -10,8 +9,9 @@ class Api::V1::TravelersController < ApplicationController
     traveler = Traveler.new
   end
 
-  def show  
-    render json: @traveler
+  def show 
+    traveler = Traveler.find(params[:id])  
+    render json: traveler
   end
 
   def create
@@ -26,19 +26,20 @@ class Api::V1::TravelersController < ApplicationController
   end
 
   def update
-    @traveler.update(traveler_params)
-    if @traveler.save
-      render json: @traveler, status: :accepted
+    traveler.update(traveler_params)
+    if traveler.save
+      render json: traveler, status: :accepted
     else
-      render json: { errors: @traveler.errors.full_messages }, status: :unprocessible_entity
+      render json: { errors: traveler.errors.full_messages }, status: :unprocessible_entity
     end
   end
 
   def destroy
-    if @traveler.destroy
+    traveler = Traveler.find(params[:id]) 
+    if traveler.destroy
       render json: { message: "removed" }, status: :ok
     else
-      render json: @traveler, message: "Failed to remove", status: :bad_request
+      render json: traveler, message: "Failed to remove", status: :bad_request
     end
   end
 
@@ -48,7 +49,4 @@ class Api::V1::TravelersController < ApplicationController
     params.permit(:name, :passion)
   end
 
-  def find_traveler  
-    @traveler = Traveler.find(params[:id]) 
-  end
 end
