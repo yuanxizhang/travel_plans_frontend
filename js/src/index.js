@@ -16,26 +16,81 @@ function fetchOffers(){
 }
 
 function renderOffers(offers) {
-
     offers.forEach((offer) => {renderOffer(offer)});
 }
 
-function renderOffer(offer){
-    
-    document.querySelector('#offers-list').innerHTML += 
-                `<li class="card" data-id=${offer.id} id="offer-card">
-                    <h5>${offer.tour_name}</h5>
-                    <p>Detail: ${offer.about}</p>
-                    <p>Departs: ${offer.departs}</p>
-                    <p>Length: ${offer.length} </p>
-                    <p>Price: $${Math.round(offer.price)} dollars</p>
-                    <p>Tour provider: ${offer.provider.name}</p>
-                    <p>${offer.likes} Likes</p>
-                    <button class="like-button btn btn-primary" data-id=${offer.id} >Like</button>
-                </li>`;
-    document.querySelector(".like-button").addEventListener('click', handleLike);
-              
+function renderOffer(offer) {
+    const oList = document.querySelector('#offers-list');
+    const card = document.createElement("li");
+    card.setAttribute('class', "card");
+    card.setAttribute("data-id", `${offer.id}`);
+
+    const h = document.createElement("h5");
+    h.innerHTML = offer.tour_name;
+
+    // const img = document.createElement("img");
+    // img.className = "offer-image";
+    // img.src = offer.image;
+
+    const p1 = document.createElement("p");
+    p1.innerHTML = `Detail: ${offer.about}`;
+
+    const p2 = document.createElement("p");
+    p2.innerHTML = `Departs: ${offer.departs}`;
+
+    const p3 = document.createElement("p");
+    p3.innerHTML = `Length: ${offer.length}`;
+
+    const p4 = document.createElement("p");
+    p4.innerHTML = `Price: $${Math.round(offer.price)}`;
+
+    const p5 = document.createElement("p");
+    p5.innerHTML = `Provider: ${offer.provider.name}`;
+
+    const p6 = document.createElement("p");
+    p6.innerHTML = `${offer.likes} likes`;
+
+    const likeBtn = document.createElement("button");
+    likeBtn.addEventListener("click", handleLike);
+    likeBtn.setAttribute("data-id", offer.id);
+    likeBtn.className = "like-btn btn btn-primary";
+    likeBtn.innerHTML = "Like";
+
+    // const deleteBtn = document.createElement("button");
+    // deleteBtn.addEventListener("click", handleDelete);
+    // deleteBtn.setAttribute("data-id", toy.id);
+    // deleteBtn.className = "delete-btn btn btn-danger";
+    // deleteBtn.innerHTML = "Delete";
+
+    oList.appendChild(card);
+
+    card.appendChild(h);
+    // card.appendChild(img);
+    card.appendChild(p1);
+    card.appendChild(p2);
+    card.appendChild(p3);
+    card.appendChild(p4);
+    card.appendChild(p5);
+    card.appendChild(p6);
+    card.appendChild(likeBtn);
+    // card.appendChild(deleteBtn);
 }
+
+// function renderOffer(offer){
+    
+//     document.querySelector('#offers-list').innerHTML += 
+//                 `<li class="card" data-id=${offer.id} id="offer-card">
+//                     <h5>${offer.tour_name}</h5>
+//                     <p>Detail: ${offer.about}</p>
+//                     <p>Departs: ${offer.departs}</p>
+//                     <p>Length: ${offer.length} </p>
+//                     <p>Price: $${Math.round(offer.price)} dollars</p>
+//                     <p>Tour provider: ${offer.provider.name}</p>
+//                     <p>${offer.likes} Likes</p>
+//                     <button class="like-button btn btn-primary" data-id=${offer.id} >Like</button>
+//                 </li>`;
+              
+// }
 
 // addOfferForm = document.querySelector('.add-offer-form')
 // addOfferForm.addEventListener('submit', function (event) {
@@ -57,36 +112,7 @@ function renderOffer(offer){
 //     .then(json => renderOffers(json))
 // })
 
-// const likeButton = document.querySelector('#likeBtn')
-// likeButton.addEventListener("click", function() {
-  
-//   let likeButtonIsPressed = event.target.className === "like-btn"
-//   let delButtonIsPressed = event.target.className === "delete-btn"
-//   if (likeButtonIsPressed) {
-//     let id = event.target.parentElement.dataset.id
-//     let like = event.target.previousElementSibling
-//     let likeCount = parseInt(event.target.previousElementSibling.innerText)
-//     like.innerText = `${++likeCount} likes`
-//     fetch(`http://localhost:3000/offers/${id}`, {
-//         method: 'PATCH',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           likes: likeCount
-//         })
-//       })
-//       .then(response => response.json())
-//   }
-//   else if (delButtonIsPressed) {
-//     let id = event.target.parentElement.dataset.id
-//     fetch(`http://localhost:3000/offers/${id}`, {
-//       method: 'DELETE'
-//     })
-//     .then(response => response.json())
-//     .then(json => renderOffers(json))
-//   }
-// })
+
 
 function handleLike(e) {
     let totalLikes = parseInt(e.target.previousElementSibling.innerText) + 1
