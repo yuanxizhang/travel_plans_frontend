@@ -4,6 +4,7 @@ class Plan {
         this.place = plan.place;
         this.adventure = plan.adventure;
         this.traveler_id = plan.traveler_id
+        Plan.all.push(this);
     }
 
     render() {      
@@ -16,4 +17,10 @@ class Plan {
             
     }
 
+    static findById(id) {
+      return this.all.find(plan => plan.id === id);
+    }
+
 }
+
+Plan.all = [];

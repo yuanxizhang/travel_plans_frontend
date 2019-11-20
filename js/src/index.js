@@ -1,19 +1,10 @@
-const BASE_URL = "http://localhost:3000/api/v1/"
-const TRAVELERS_URL = `${BASE_URL}/travelers`; 
-const PLANS_URL = `${BASE_URL}/plans`; 
-const PROVIDERS_URL = `${BASE_URL}/providers`; 
-const OFFERS_URL = `${BASE_URL}/offers`; 
+const PLANS_URL = 'http://localhost:3000/api/v1/plans'
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetchOffers();
-    getTravelers();
+    const app = new App();
+    app.adapter.getOffers().then (json => renderOffers(json));
+    app.adapter.getTravelers().then (json => showTravelers(json)); 
 })
-
-function fetchOffers(){
-  return fetch(OFFERS_URL)
-          .then(resp => resp.json())
-          .then (json => renderOffers(json));  
-}
 
 function renderOffers(offers) {
     offers.forEach((offer) => {renderOffer(offer)});
@@ -58,7 +49,7 @@ function renderOffer(offer) {
 
     // const deleteBtn = document.createElement("button");
     // deleteBtn.addEventListener("click", handleDelete);
-    // deleteBtn.setAttribute("data-id", toy.id);
+    // deleteBtn.setAttribute("data-id", offer.id);
     // deleteBtn.className = "delete-btn btn btn-danger";
     // deleteBtn.innerHTML = "Delete";
 
@@ -116,31 +107,19 @@ function renderOffer(offer) {
 
 function handleLike(e) {
     let totalLikes = parseInt(e.target.previousElementSibling.innerText) + 1
-    let options = {
-                    method: "PATCH",
-                    headers: {
-                              "Content-Type": "application/json",
-                              "Accept": "application/json"
-                            },
-                    body: JSON.stringify({
-                                likes: totalLikes
-                            })
-                    }
+    
+    let offer_id = parseInt(e.target.dataset.id)
+    let likeObj = {likes: totalLikes}
 
-    fetch(OFFERS_URL + `/${e.target.dataset.id}`, options)
-    .then(resp => resp.json())
+    const offerAdapter = new Adapter();
+
+    offerAdapter.updateLikeCount(offer_id, likeObj)
     .then(data => {
       e.target.previousElementSibling.innerText = `${totalLikes} Likes`
     })
   }
 
-function getTravelers() {
-    return fetch(TRAVELERS_URL)
-          .then(resp => resp.json())
-          .then (json => createTravelers(json));          
-}
-
-function createTravelers(data) {
+function showTravelers(data) {
     data.forEach(traveler => renderTraveler(traveler));
     
 }
@@ -153,7 +132,7 @@ function renderTraveler(traveler) {
     div.setAttribute("data-id", `${traveler.id}`)
 
     const p = document.createElement('p')
-    p.innerHTML = `${traveler.name}`
+    p.innerHTML = `${traveler.name} - loves ${traveler.passion}`
     div.appendChild(p)
 
     const addbtn = document.createElement('button')
@@ -167,7 +146,7 @@ function renderTraveler(traveler) {
 
     traveler.plans.forEach(plan => {
 
-        let li = createPlan(plan);
+        let li = buildPlanLi(plan);
 
         ul.appendChild(li);
     })
@@ -176,29 +155,24 @@ function renderTraveler(traveler) {
 }
 
 function morePlan(e) {
-    if (e.target.nextSibling.childElementCount < 10) {
-        fetchPlan(e.target.attributes[0].value)
+    if (e.target.nextSibling.childElementCount < 20) {
+        addPlan(e.target.attributes[0].value)
     }
 
 }
 
-function fetchPlan(traveler_id) {
+function addPlan({place, adventure, traveler_id}) {
 
-    let planObj = {
-        "traveler_id": traveler_id
+    let planObj = {   
+        'place': place,
+        'adventure': adventure,
+        'traveler_id': traveler_id,
     }
 
-    let configObj = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(planObj)
-    };
+    const planAdapter = new Adapter();
 
-    fetch(PLANS_URL, configObj)
-        .then(res => res.json())
-        .then(obj => renderPlan(obj))
+    adapter.createPlan(planObj)
+        .then(json => renderPlan(json))
         .catch(err => console.log(err));
 }
 
@@ -206,23 +180,23 @@ function renderPlan(obj) {
     
     const travelerDiv = document.querySelector(`[data-id="${obj.traveler.id}"] ul`)
 
-    let li = createPlan(obj)
+    let li = buildPlanLi(obj)
 
     travelerDiv.appendChild(li)
 }
 
-function createPlan(obj) {
+function buildPlanLi(obj) {
     const li = document.createElement('li')
 
     li.innerHTML = `${obj.place} - ${obj.adventure}`
 
-    let relbtn = document.createElement('button')
+    let rembtn = document.createElement('button')
 
-    relbtn.setAttribute("class", "remove")
-    relbtn.setAttribute("data-plan-id", `${obj.id}`)
-    relbtn.innerHTML = "Remove"
-    relbtn.addEventListener('click', destroyPlan)
-    li.appendChild(relbtn)
+    rembtn.setAttribute("class", "remove")
+    rembtn.setAttribute("data-plan-id", `${obj.id}`)
+    rembtn.innerHTML = "Remove"
+    rembtn.addEventListener('click', destroyPlan)
+    li.appendChild(rembtn)
 
     return li;
 }
@@ -233,13 +207,14 @@ function destroyPlan(e) {
         "id": e.target.attributes[1].value
     }
 
-    let configObj = {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(planObj)
-    };
+    const configObj = {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify(planObj),
+    }
 
     fetch(PLANS_URL + `/${planObj.id}`, configObj)
         .then(res => res.json())
