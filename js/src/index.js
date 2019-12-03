@@ -19,9 +19,9 @@ function renderOffer(offer) {
     const h = document.createElement("h5");
     h.innerHTML = offer.tour_name;
 
-    // const img = document.createElement("img");
-    // img.className = "offer-image";
-    // img.src = offer.image;
+    const img = document.createElement("img");
+    img.className = "tour-image";
+    img.src = offer.image;
 
     const p1 = document.createElement("p");
     p1.innerHTML = `Detail: ${offer.about}`;
@@ -56,7 +56,7 @@ function renderOffer(offer) {
     oList.appendChild(card);
 
     card.appendChild(h);
-    // card.appendChild(img);
+    card.appendChild(img);
     card.appendChild(p1);
     card.appendChild(p2);
     card.appendChild(p3);
