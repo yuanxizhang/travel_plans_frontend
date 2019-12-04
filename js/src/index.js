@@ -1,5 +1,11 @@
 const PLANS_URL = 'http://localhost:3000/api/v1/plans'
 
+const travelerForm = document.querySelector('.container')
+
+let form = document.querySelector(".add-traveler-form");
+form.addEventListener("submit", handleSubmit);
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const app = new App();
     app.adapter.getOffers().then (json => renderOffers(json));
@@ -47,12 +53,6 @@ function renderOffer(offer) {
     likeBtn.className = "like-btn btn btn-primary";
     likeBtn.innerHTML = "Like";
 
-    // const deleteBtn = document.createElement("button");
-    // deleteBtn.addEventListener("click", handleDelete);
-    // deleteBtn.setAttribute("data-id", offer.id);
-    // deleteBtn.className = "delete-btn btn btn-danger";
-    // deleteBtn.innerHTML = "Delete";
-
     oList.appendChild(card);
 
     card.appendChild(h);
@@ -64,7 +64,7 @@ function renderOffer(offer) {
     card.appendChild(p5);
     card.appendChild(p6);
     card.appendChild(likeBtn);
-    // card.appendChild(deleteBtn);
+    
 }
 
 // function renderOffer(offer){
@@ -124,6 +124,7 @@ function showTravelers(data) {
     
 }
 
+
 function renderTraveler(traveler) {
     const main = document.querySelector('main')
 
@@ -135,12 +136,7 @@ function renderTraveler(traveler) {
     p.innerHTML = `${traveler.name} - loves ${traveler.passion}`
     div.appendChild(p)
 
-    const addbtn = document.createElement('button')
-    addbtn.setAttribute("data-traveler-id", `${traveler.id}`)
-    addbtn.innerHTML = "Add Plan"
-    addbtn.addEventListener('click', morePlan)
-    div.appendChild(addbtn)
-
+    
     const ul = document.createElement('ul')
     div.appendChild(ul)
 
@@ -151,15 +147,44 @@ function renderTraveler(traveler) {
         ul.appendChild(li);
     })
 
+    const deleteBtn = document.createElement("button");
+    deleteBtn.addEventListener("click", handleDelete);
+    deleteBtn.setAttribute("data-id", `${traveler.id}`);
+    deleteBtn.className = "delete-btn btn btn-danger";
+    deleteBtn.innerHTML = "Delete";
+
+    div.appendChild(deleteBtn);
+
     main.appendChild(div)
 }
 
-function morePlan(e) {
-    if (e.target.nextSibling.childElementCount < 20) {
-        addPlan(e.target.attributes[0].value)
-    }
+function handleSubmit(e){
+  e.preventDefault()
+  let travelerData = {
+                        name: e.target.name.value,
+                        passion: e.target.passion.value
+                    }
+  const tAdapter = new Adapter();
+  tAdapter.addNewTraveler(travelerData);
 
+  document.querySelector(".add-traveler-form").reset();
+  tAdapter.getTravelers().then (json => showTravelers(json));
+  return false;
 }
+
+function handleDelete(e) {
+    let travelerObj = {
+            "id": e.target.parentElement.dataset.id
+        };
+
+    let id = travelerObj.id;
+
+    const travelerAdapter = new Adapter;
+    travelerAdapter.deleteTraveler(id, travelerObj);
+
+    e.target.parentElement.remove();
+}
+
 
 function addPlan({place, adventure, traveler_id}) {
 
@@ -171,7 +196,7 @@ function addPlan({place, adventure, traveler_id}) {
 
     const planAdapter = new Adapter();
 
-    adapter.createPlan(planObj)
+    planAdapter.addNewPlan(planObj)
         .then(json => renderPlan(json))
         .catch(err => console.log(err));
 }

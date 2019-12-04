@@ -14,13 +14,13 @@
     <title>Group Travel App</title>
   </head>
   <body>
-    <div class="container">
-      <h1>Group Travel App</h1>
+    
+      <h1>Top Choices for Your Next Vacation</h1>
       
       <div id="offers">
-        <h4>Tours offered</h4>
+        <h4>Tours sorted by price</h4>
         <UL id="offers-list"></UL>
-
+      </div>
         <!-- <form id="new-offer-form" class="add-offer-form" >
           <fieldset>
               <legend>New Tour Offer</legend>
@@ -38,21 +38,24 @@
           </fieldset>
         </form> -->
 
-        <h4>Travelers and their prefered adventures</h4>
-        <main>
+      <h4>Travelers and their prefered adventures</h4>
+      <main>
 
-        </main>
+      </main>
 
 
-        <!-- <h5>Add new traveler</h5>
-        <form id="new-traveler-form" class="add-traveler-form" >
+      <h5>Add new traveler</h5>
+      <div class="container" style='text-align:center'>
+        
+        <form class="add-traveler-form" >
           <label> Name: 
-          <input type="text" name="new-traveler-name" id="new-traveler-name" /></label><br />
+          <input type="text" name="name" id="traveler-name" placeholder="Enter a traveler's name..." class="input-text"/></label>
           <label> Passion: 
-          <input type="text" name="new-traveler-passion" id="new-traveler-passion" /></label><br />
-          <input class="btn btn-primary" type="submit" name="submit" id="submit" value="Submit" />
+          <input type="text" name="passion" id="traveler-passion" placeholder="Traveler's passion..." class="input-text"/></label>
+          <input class="submit btn-primary" type="submit" name="submit" id="new-traveler-button" value="Add New Traveler" />
         </form>
-      </div> -->
+        
+      </div>
 
       <script src="./src/index.js"></script>
       <script src="./src/app.js"></script>

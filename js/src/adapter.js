@@ -16,7 +16,8 @@ class Adapter {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify(obj),
-    }).then(res => res.json());
+    }).then(res => res.json())
+      .catch(err => console.log(err));
   }
 
   delete(url, obj) {
@@ -24,7 +25,8 @@ class Adapter {
       method: 'DELETE',
       headers: this.headers,
       body: JSON.stringify(obj),
-    }).then(res => res.json());
+    }).then(res => res.json())
+      .catch(err => console.log(err));
   }
 
   post(url, obj) {
@@ -32,7 +34,8 @@ class Adapter {
       method: 'POST',
       headers: this.headers,
       body: JSON.stringify(obj),
-    }).then(res => res.json());
+    }).then(res => res.json())
+      .catch(err => console.log(err));
   }
 
   getOffers() {
@@ -51,20 +54,24 @@ class Adapter {
     return this.patch(`${this.baseUrl}/offers/${id}`, likeObj);
   }
 
-  updatePlan(id, planObj) {
-    return this.patch(`${this.baseUrl}/plans/${id}`, planObj);
-  }
-
-  createTraveler(travelerObj) {
+  addNewTraveler(travelerObj) {
     return this.post(`${this.baseUrl}/travelers`, travelerObj);
   }
 
-  createPlan(planObj) {
+  deleteTraveler(id, travelerObj) {
+    return this.delete(`${this.baseUrl}/travelers/${id}`, travelerObj);
+  }
+
+  addNewPlan(planObj) {
     return this.post(`${this.baseUrl}/plans`, planObj);
   }
 
   deletePlan(id, planObj) {
-    return this.post(`${this.baseUrl}/plans/${id}`, planObj);
+    return this.delete(`${this.baseUrl}/plans/${id}`, planObj);
+  }
+
+  updatePlan(id, planObj) {
+    return this.patch(`${this.baseUrl}/plans/${id}`, planObj);
   }
 
 }
