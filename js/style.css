@@ -27,12 +27,15 @@ button.like-btn {
     margin-right: 35%
   }
 
-button.remove {
+button.new-plan {
     font-size: .65em;
     float: right;
     color: #fff;
-    background-color: #E1332D;
-    border-radius: 5px;
+    background-color: navy;
+    border-radius: 3px;
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%
 }
 
 button.submit {
@@ -53,15 +56,14 @@ button.delete-btn {
     margin-right: 40s%
   }
 
-fieldset {
-  display: block;
-  margin-left: 2px;
-  margin-right: 2px;
-  padding-top: 0.35em;
-  padding-bottom: 0.625em;
-  padding-left: 0.75em;
-  padding-right: 0.75em;
-  border: 2px groove (internal value);
+form {
+  /* Center the form on the page */
+  margin: 0 auto;
+  width: 100%;
+  /* Form outline */
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
 }
 
 .card {

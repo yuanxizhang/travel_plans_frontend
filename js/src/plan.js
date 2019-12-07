@@ -3,24 +3,13 @@ class Plan {
         this.id = plan.id
         this.place = plan.place;
         this.adventure = plan.adventure;
-        this.traveler_id = plan.traveler_id
-        Plan.all.push(this);
+        this.traveler_id = plan.traveler_id;
     }
 
-    render() {      
-        return `
-            <li>
-              <p>Place: ${this.place} - Adventure: ${this.adventure}
-                 <button data-id=${this.id}>Edit</button>
-                 <button data-id="${this.id}">Delete</button></p>   
-            </li>`;
-            
-    }
-
-    static findById(id) {
-      return this.all.find(plan => plan.id === id);
-    }
+    buildPlanLi() { 
+        const li = document.createElement('li')
+        li.innerHTML = `${this.place}: ${this.adventure}`
+        return li;
+    }  
 
 }
-
-Plan.all = [];

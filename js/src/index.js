@@ -1,9 +1,5 @@
-const PLANS_URL = 'http://localhost:3000/api/v1/plans'
-
-const travelerForm = document.querySelector('.container')
-
 let form = document.querySelector(".add-traveler-form");
-form.addEventListener("submit", handleSubmit);
+form.addEventListener("submit", handleFormSubmit);
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,75 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function renderOffers(offers) {
-    offers.forEach((offer) => {renderOffer(offer)});
+    offers.forEach((offer) => {
+        const newOffer = new Offer(offer);
+        newOffer.render();
+    });
 }
 
-function renderOffer(offer) {
-    const oList = document.querySelector('#offers-list');
-    const card = document.createElement("li");
-    card.setAttribute('class', "card");
-    card.setAttribute("data-id", `${offer.id}`);
 
-    const h = document.createElement("h5");
-    h.innerHTML = offer.tour_name;
 
-    const img = document.createElement("img");
-    img.className = "tour-image";
-    img.src = offer.image;
-
-    const p1 = document.createElement("p");
-    p1.innerHTML = `Detail: ${offer.about}`;
-
-    const p2 = document.createElement("p");
-    p2.innerHTML = `Departs: ${offer.departs}`;
-
-    const p3 = document.createElement("p");
-    p3.innerHTML = `Length: ${offer.length}`;
-
-    const p4 = document.createElement("p");
-    p4.innerHTML = `Price: $${Math.round(offer.price)}`;
-
-    const p5 = document.createElement("p");
-    p5.innerHTML = `Provider: ${offer.provider.name}`;
-
-    const p6 = document.createElement("p");
-    p6.innerHTML = `${offer.likes} likes`;
-
-    const likeBtn = document.createElement("button");
-    likeBtn.addEventListener("click", handleLike);
-    likeBtn.setAttribute("data-id", offer.id);
-    likeBtn.className = "like-btn btn btn-primary";
-    likeBtn.innerHTML = "Like";
-
-    oList.appendChild(card);
-
-    card.appendChild(h);
-    card.appendChild(img);
-    card.appendChild(p1);
-    card.appendChild(p2);
-    card.appendChild(p3);
-    card.appendChild(p4);
-    card.appendChild(p5);
-    card.appendChild(p6);
-    card.appendChild(likeBtn);
-    
-}
-
-// function renderOffer(offer){
-    
-//     document.querySelector('#offers-list').innerHTML += 
-//                 `<li class="card" data-id=${offer.id} id="offer-card">
-//                     <h5>${offer.tour_name}</h5>
-//                     <p>Detail: ${offer.about}</p>
-//                     <p>Departs: ${offer.departs}</p>
-//                     <p>Length: ${offer.length} </p>
-//                     <p>Price: $${Math.round(offer.price)} dollars</p>
-//                     <p>Tour provider: ${offer.provider.name}</p>
-//                     <p>${offer.likes} Likes</p>
-//                     <button class="like-button btn btn-primary" data-id=${offer.id} >Like</button>
-//                 </li>`;
-              
-// }
 
 // addOfferForm = document.querySelector('.add-offer-form')
 // addOfferForm.addEventListener('submit', function (event) {
@@ -120,73 +55,32 @@ function handleLike(e) {
   }
 
 function showTravelers(data) {
-    data.forEach(traveler => renderTraveler(traveler));
+    data.forEach(traveler => {
+        const newTraveler = new Traveler(traveler);
+        newTraveler.render();
+    });
     
 }
 
-
-function renderTraveler(traveler) {
-    const main = document.querySelector('main')
-
-    const div = document.createElement('div')
-    div.setAttribute("class", "card")
-    div.setAttribute("data-id", `${traveler.id}`)
-
-    const p = document.createElement('p')
-    p.innerHTML = `${traveler.name} - loves ${traveler.passion}`
-    div.appendChild(p)
-
-    
-    const ul = document.createElement('ul')
-    div.appendChild(ul)
-
-    traveler.plans.forEach(plan => {
-
-        let li = buildPlanLi(plan);
-
-        ul.appendChild(li);
-    })
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.addEventListener("click", handleDelete);
-    deleteBtn.setAttribute("data-id", `${traveler.id}`);
-    deleteBtn.className = "delete-btn btn btn-danger";
-    deleteBtn.innerHTML = "Delete";
-
-    div.appendChild(deleteBtn);
-
-    main.appendChild(div)
-}
-
-function handleSubmit(e){
+function handleFormSubmit(e){
   e.preventDefault()
   let travelerData = {
                         name: e.target.name.value,
                         passion: e.target.passion.value
                     }
-  const tAdapter = new Adapter();
-  tAdapter.addNewTraveler(travelerData);
 
+  const tAdapter = new Adapter();
+  tAdapter.addNewTraveler(travelerData).then (jsonData => {
+        const traveler = new Traveler(jsonData);
+        traveler.render();
+    });
   document.querySelector(".add-traveler-form").reset();
-  tAdapter.getTravelers().then (json => showTravelers(json));
   return false;
 }
 
-function handleDelete(e) {
-    let travelerObj = {
-            "id": e.target.parentElement.dataset.id
-        };
-
-    let id = travelerObj.id;
-
-    const travelerAdapter = new Adapter;
-    travelerAdapter.deleteTraveler(id, travelerObj);
-
-    e.target.parentElement.remove();
-}
 
 
-function addPlan({place, adventure, traveler_id}) {
+function createPlan(place, adventure, traveler_id) {
 
     let planObj = {   
         'place': place,
@@ -201,57 +95,22 @@ function addPlan({place, adventure, traveler_id}) {
         .catch(err => console.log(err));
 }
 
-function renderPlan(obj) {
-    
-    const travelerDiv = document.querySelector(`[data-id="${obj.traveler.id}"] ul`)
 
-    let li = buildPlanLi(obj)
 
-    travelerDiv.appendChild(li)
+function handleEditForm(e) {
+    e.preventDefault();
+    const id = parseInt(e.target.attributes[1].value);
+    const plan = Plan.findById(id);
+    const place = e.target.querySelector('input').value;
+    const adventure = e.target.querySelector('textarea').value;
+    const traveler_id = plan.traveler.id;
+
+    const planJSON = { place, adventure, traveler_id };
+    const planAdapter = new Adapter;
+    planAdapter.updatePlan(plan.id, planJSON).then(updatedPlan => console.log(updatedPlan));
 }
 
-function buildPlanLi(obj) {
-    const li = document.createElement('li')
 
-    li.innerHTML = `${obj.place} - ${obj.adventure}`
-
-    let rembtn = document.createElement('button')
-
-    rembtn.setAttribute("class", "remove")
-    rembtn.setAttribute("data-plan-id", `${obj.id}`)
-    rembtn.innerHTML = "Remove"
-    rembtn.addEventListener('click', destroyPlan)
-    li.appendChild(rembtn)
-
-    return li;
-}
-
-function destroyPlan(e) {
-    
-    let planObj = {
-        "id": e.target.attributes[1].value
-    }
-
-    const configObj = {
-      method: 'DELETE',
-      headers: {
-        'content-type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify(planObj),
-    }
-
-    fetch(PLANS_URL + `/${planObj.id}`, configObj)
-        .then(res => res.json())
-        .then(obj => removePlan(obj))
-        .catch(err => console.log(err));
-}
-
-function removePlan(obj) {
-    const travelerDiv = document.querySelector(`[data-id="${obj.traveler.id}"] ul li [data-plan-id="${obj.id}"]`)
-    
-    travelerDiv.parentNode.remove();
-}
 
 
 

@@ -8,7 +8,7 @@ class Adapter {
   }
 
   get(url) {
-    return fetch(url).then(res => res.json());
+    return fetch(url).then(res => res.json()).catch(err => console.log(err));
   }
 
   patch(url, obj) {
