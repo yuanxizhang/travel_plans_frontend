@@ -27,7 +27,7 @@ button.like-btn {
     margin-right: 35%
   }
 
-button.new-plan {
+button.add-plan {
     font-size: .65em;
     float: right;
     color: #fff;
@@ -64,6 +64,12 @@ form {
   padding: 1em;
   border: 1px solid #CCC;
   border-radius: 1em;
+  background-color : rgba(0,123,255,0.25);
+}
+
+input {
+  background-color : #fff;
+  color : navy;
 }
 
 .card {

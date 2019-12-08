@@ -49,7 +49,7 @@ class Api::V1::PlansController < ApplicationController
   private
 
   def plan_params
-    params.permit(:place, :adventure)
+    params.permit(:place, :adventure, :traveler_id)
   end
 
 end
