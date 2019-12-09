@@ -21,7 +21,7 @@ Create the models: Plan, Offer, Provider
 rails g model Traveler name, passion
 rails g model Plan place, adventure
 rails g model Provider name, website
-rails g model Offer tour_name, about, departs, length, price
+rails g model Offer tour_name, about, departs, length, price, image, likes
 
 Step 2: Create the serializers: 
 
