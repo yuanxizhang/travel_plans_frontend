@@ -76,7 +76,7 @@ button {
 form {
   /* Center the form on the page */
   margin: 0 auto;
-  width: 100%;
+  width: 75%;
   /* Form outline */
   padding: 1em;
   border: 1px solid #CCC;
@@ -87,7 +87,7 @@ form {
 form.add-traveler-form {
   /* Center the form on the page */
   margin: 0 auto;
-  width: 100%;
+  width: 75%;
   /* Form outline */
   padding: 1em;
   border: 1px solid #CCC;
@@ -129,8 +129,8 @@ input {
 
 .tour-image {
   justify-self: center;
-  height: 15rem;
-  width: auto;
+  height: auto;
+  width: 100%;
 }
 
 article.media-post > header {
@@ -145,3 +145,5 @@ article.media-post > footer {
 .card > footer ul {
   list-style-type: none;
 }
+
+
