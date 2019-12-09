@@ -16,7 +16,7 @@ The features of this application:
 * Like a tour by clicking on the like button to increase the total like count
 * Add a new travel plan for a traveler
 
-## Project Setup 
+## Rails API Backend Setup 
 
 Create a folder called travel-project. Inside the travel-project folder make two seperate directories: js, rails.
 
@@ -41,12 +41,28 @@ Things we need to do for the traveler controller:
 
 After the Rails Backend is completed, we can check the four working endpoints, or routes that it exposes to the public. To see all the travelers, for example, we could navigate to http://localhost:3000/api/v1/travelers.
 
-Since this is a Singla Page Application(SPA), we only need to build one HTML page. We will name this home page file index.html. 
+## Javascript Frontend Setup
 
-In the frontend, we use classes and functions to organize our code into reusable pieces. We translate JSON responses into JavaScript model objects. 
+This is a Singla Page Application(SPA), we want to build one HTML page. We will name the file for home page index.html. 
+
+In the frontend, we use classes and functions to organize our code into reusable pieces. We translate JSON responses into JavaScript model objects. We want to build a class called Traveler to encapsulate Traveler related data and behavior. We will name the file for Traveler class traveler.js.
 
 We also want to create a class whose only responsibility is to communicate with the Rails API, we can name this class Adapter and save it in the file adapter.js.
 
 In the adapter.js file, we want to use fetch to handle Client-Server Communications. All interactions between the client and the server should be handled asynchronously (AJAX) and use JSON as the communication format. 
 
-We use POST request to create a new traveler, use PATCH request to update tour offer's like count, use GET request to get all tour offers, and use DELETE request to remove a traveler.
+#### Get Offers and Travelers
+
+When a user loads the page, the app will make a 'GET' request to fetch all the offer data. With the response data, the app makes a list item for each offer and adds it to the offers list. Then it makes the second 'GET' request to fetch all the traveler data, make a <div class="card"> for each traveler and add it to <main> section.
+
+#### Add a New Traveler
+
+When a user clicks on the add traveler button, a POST request is sent to http://localhost:3000/api/v1/travelers with the new traveler's data in JSON format, the new traveler is added to the travelers table in the backned, and the new traveler in rendered on the DOM.
+
+#### Delete a Traveler
+
+When a user clicks on the delete traveler button, a DELETE request is sent to http://localhost:3000/api/v1/travelers/id with the JSON data that has the id of the traveler to be deleted, the traveler is deleted from the travelers table in the backend, and removed from the DOM in the frontend.
+
+#### Update the Like Count for an Offer
+
+When a user clicks on a tour offer's like button, two things should happen: the number of likes in the frontend increase by 1, A 'PATCH' request is sent to the server at http://localhost:3000/api/v1/offers/:id updating the number of likes that the specific offer has.
