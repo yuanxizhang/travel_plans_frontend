@@ -63,6 +63,6 @@ When a user clicks on the add traveler button, a POST request is sent to http://
 
 When a user clicks on the delete traveler button, a DELETE request is sent to http://localhost:3000/api/v1/travelers/id with the JSON data that has the id of the traveler to be deleted, the traveler is deleted from the travelers table in the backend, and removed from the DOM in the frontend.
 
-#### Update the Like Count for an Offer
+#### Update the Like Count of an Offer
 
-When a user clicks on a tour offer's like button, two things should happen: the number of likes in the frontend increase by 1, A 'PATCH' request is sent to the server at http://localhost:3000/api/v1/offers/:id updating the number of likes that the specific offer has.
+When a user clicks on a tour offer's like button, two things will happen: the number of likes on the page will increase by 1, and a 'PATCH' request is sent to the server at http://localhost:3000/api/v1/offers/:id to update the number of likes that the specific offer has in the offers table.
