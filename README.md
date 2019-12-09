@@ -53,7 +53,7 @@ In the adapter.js file, we want to use fetch to handle Client-Server Communicati
 
 #### Get Offers and Travelers
 
-When a user loads the page, the app will make a 'GET' request to fetch all the offer data. With the response data, the app makes a list item for each offer and adds it to the offers list. Then it makes the second 'GET' request to fetch all the traveler data, make a <div class="card"> for each traveler and add it to <main> section.
+When a user loads the page, the app will make a 'GET' request to fetch all the offer data. With the response data, the app makes a list item for each offer and adds it to the offers list. Then it makes the second 'GET' request to fetch all the traveler data, make a div element for each traveler and add it to the main section of the page.
 
 #### Add a New Traveler
 
