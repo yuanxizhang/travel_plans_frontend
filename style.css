@@ -1,10 +1,10 @@
 body {
   margin: 5% 10%;
-  background-color: beige;
+  background-color: #92a8d1;
 }
 
 body h1 {
-  color: #777;
+  color: #fff;
 }
 
 body > header {
@@ -17,40 +17,120 @@ li {
     padding-right: 20px;
 }
 
-button.remove {
-    float: right;
-    color: #fff;
-    background-color: #E1332D;
-    border-radius: 10px;
-}
-
-button.delet-btn {
-    font-size: .65em;
-    color: red;
-    background-color: green;
-    border-radius: 10px;
+button.like-btn {
+    font-size: .75em;
+    color: white;
+    background-color: navy;
+    border-radius: 5px;
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%
   }
 
-fieldset {
-  display: block;
-  margin-left: 2px;
-  margin-right: 2px;
-  padding-top: 0.35em;
-  padding-bottom: 0.625em;
-  padding-left: 0.75em;
-  padding-right: 0.75em;
-  border: 2px groove (internal value);
+button.add-plan {
+    font-size: .75em;
+    float: right;
+    color: #fff;
+    background-color: navy;
+    border-radius: 4px;
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%
+}
+
+input.add-traveler-btn {
+    font-size: .75em;
+    color: #fff;
+    background-color: navy;
+    border-radius: 4px;
+    font-size: .75em;
+    padding-left: 10px; 
+    margin-left: .5em;
+}
+
+button.delete-btn {
+    font-size: .75em;
+    color: white;
+    background-color: red;
+    border-radius: 5px;
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%
+  }
+
+button.mew-traveler {
+    /* Align buttons with the text fields */
+    padding-left: 90px; /* same size as the label elements */
+    font-size: .75em;
+    color: white;
+    background-color: navy;
+    border-radius: 5px;
+}
+
+button {
+  /* This extra margin represent roughly the same space as the space
+     between the labels and their text fields */
+  margin-left: .5em;
+}
+
+form {
+  /* Center the form on the page */
+  margin: 0 auto;
+  width: 75%;
+  /* Form outline */
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+  background-color : rgba(0,123,255,0.25);
+}
+
+form.add-traveler-form {
+  /* Center the form on the page */
+  margin: 0 auto;
+  width: 75%;
+  /* Form outline */
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+  background-color : cornflowerblue;
+}
+
+label {
+  /* Uniform size & alignment */
+  display: inline-block;
+  width: 115px;
+  text-align: right;
+}
+
+input {
+  background-color : #fff;
+  color : navy;
 }
 
 .card {
+  text-align: center;
   border: solid 0.5px #999;
   margin: 2% 3%;
+  padding: 1rem;
   background-color: #fff;
+  box-shadow: 3px 4px navy
 }
 
 .card > p {
   background-color: rgba(0,123,255,0.25);
   padding: 0.33em 0.33em;
+}
+
+.card > h5 {
+  text-align: center;
+  color: navy;
+  padding: 0.33em 0.33em;
+}
+
+.tour-image {
+  justify-self: center;
+  height: auto;
+  width: 100%;
 }
 
 article.media-post > header {
