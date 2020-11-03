@@ -11,54 +11,48 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css" />
 
-    <title>Travel Plans App</title>
+    <title>Group Travel App</title>
   </head>
   <body>
-    <div class="container">
-      <h1>Travel Plans App</h1>
+    
+      <h1>Join Us for Great Trips Around the World</h1>
       
       <div id="offers">
-        <h4>Tours offered</h4>
+        <h4>Tours sorted by price</h4>
         <UL id="offers-list"></UL>
+      </div>
 
-        <!-- <form id="new-offer-form" class="add-offer-form" >
-          <fieldset>
-              <legend>New Tour Offer</legend>
-              <label> Tour Name: 
-              <input type="text" name="tour_name" id="new-tour-name" /></label><br />
-              <label> Detail: 
-              <input type="text" name="detail" id="new-detail" /></label><br />
-              <label> Departs: 
-              <input type="text" name="departs" id="new-departs" /></label><br />
-              <label> Length: 
-              <input type="text" name="length" id="new-length" /></label><br />
-              <label> Price: 
-              <input type="text" name="price" id="new-length" /></label><br />
-              <input class="btn btn-primary" type="submit" name="submit" id="submit" value="Submit" />
-          </fieldset>
-        </form> -->
-
-        <h4>Travelers</h4>
-        <main>
-    
-        </main>
+      <h4>Travelers and their prefered adventures</h4>
+      <main>
+      </main>
 
 
-        <!-- <h5>Add new traveler</h5>
-        <form id="new-traveler-form" class="add-traveler-form" >
-          <label> Name: 
-          <input type="text" name="new-traveler-name" id="new-traveler-name" /></label><br />
-          <label> Passion: 
-          <input type="text" name="new-traveler-passion" id="new-traveler-passion" /></label><br />
-          <input class="btn btn-primary" type="submit" name="submit" id="submit" value="Submit" />
+      <h5>Add new traveler</h5>
+      <div class="container" style='text-align:center'>
+        
+        <form class="add-traveler-form" >
+          <p>New Traveler</p>
+          <P>
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="traveler-name" placeholder="new traveler's name" class="input-text"/>
+          </P>
+          <p>
+            <label for="passion">Passion:</label>
+            <input type="text" name="passion" id="traveler-passion" placeholder="new traveler's passion" class="input-text"/>
+          </p> 
+          <p>
+            <input class="add-traveler-btn" type="submit" name="submit" id="new-traveler-button" value="Add Traveler" />
+          </p>
         </form>
-      </div> -->
+        
+      </div>
 
       <script src="./src/index.js"></script>
+      <script src="./src/app.js"></script>
+      <script src="./src/adapter.js"></script>
       <script src="./src/offer.js"></script>
       <script src="./src/traveler.js"></script>
       <script src="./src/plan.js"></script>
     </div>
   </body>
 </html>
-
